@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Lead extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name', 'email', 'message', 'privacy_policy'
+    ] ;
 }
