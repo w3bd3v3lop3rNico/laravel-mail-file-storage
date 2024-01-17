@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\LeadController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
@@ -24,7 +25,12 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
     Route::resource('projects', ProjectController::class);
+
+    // Route::resource('leads', LeadController::class)->only(['create', 'store']);
+    Route::get('/contacts', [LeadController::class, 'create'])->name('leads.create');
+    Route::post('/contacts', [LeadController::class, 'store'])->name('leads.store');
 });
 
 Route::middleware('auth')->name('profile.')->group(function () {
