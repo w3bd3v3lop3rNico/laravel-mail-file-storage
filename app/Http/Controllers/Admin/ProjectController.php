@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -55,12 +56,19 @@ class ProjectController extends Controller
         $data = $request->all();
         $data['slug'] = Str::slug($data['title'], '-');
 
+        if ($request->hasFile('image')) {
+
+            $file_path = Storage::put('uploads/images', $request->image);
+
+            $data['image'] = $file_path;
+        }
+
         $project = Project::create($data);
 
         if($request->has('technologies')) {
             $project->technologies()->attach($data['technologies']);
         }
-        dd($data);
+        // dd($data);
 
         return redirect()->route('admin.projects.show', $project);
     }

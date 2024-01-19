@@ -8,13 +8,23 @@
     </section>
     <section>
       <div class="container">
-        <form action="{{ route('admin.projects.store') }}" method="POST">
+        <form action="{{ route('admin.projects.store') }}" method="POST" enctype="multipart/form-data">
       
         @csrf
 
         <div class="mb-3">
           <label for="title" class="form-label">Title</label>
           <input type="text" class="form-control" name="title" id="title" placeholder="Titolo del post" value="{{ old('title') }}">
+        </div>
+
+        <div class="mb-3">
+          <label for="image" class="form-label">Add new image
+          <input class="form-control" name="image" type="file" id="image">
+        </div>
+
+        <div class="mb-3">
+          <label for="video" class="form-label">Add new video</label>
+          <input class="form-control" name="video" type="file" id="video">
         </div>
 
         {{-- @dump($categories) --}}
